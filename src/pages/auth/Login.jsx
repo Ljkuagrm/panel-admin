@@ -19,7 +19,7 @@ const Login = () => {
           INICIAR <span className="text-primary">SESIÓN</span>
         </h1>
         <form className="mb-8">
-          <button className="flex items-center justify-center py-3 px-4 gap-4 bg-secondary-900 w-full rounded-full mb-8 text-gray-100">
+          <button className="flex items-center justify-center py-3 px-4 gap-4 bg-secondary-400 w-full rounded-full mb-8 text-green-400">
             <img
               src="../../../public/dappermens10.png"
               className="w-8 h-8"
@@ -42,6 +42,7 @@ const Login = () => {
               type={showPassword ? "text" : "password"}
               className="py-3 px-8 bg-secondary-900 w-full outline-none rounded-lg"
               placeholder="CONTRASEÑA"
+              autoComplete="on"
             />
             
             {showPassword ? (

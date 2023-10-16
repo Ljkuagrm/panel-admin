@@ -10,9 +10,10 @@ export default {
       colors: {
         primary: "#BDEB00",
         secondary: {
-          100: "#1E1F25",
-          400: "#2A332B",
-          900: "#0C100C",
+          100: "#1E1F25", //marcos color
+          900: "#E0EFE2", //minibox color
+          400: "#2A332B", //text1 color
+          200: "#EFFCF1", //fondo color
         }
       }
     },
