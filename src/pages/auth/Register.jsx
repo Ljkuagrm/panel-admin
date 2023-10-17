@@ -44,6 +44,7 @@ const Register = () => {
         email: user.email,
         username: user.username,
         password: user.password,
+        role: "CLIENTE"
       });
 
       if (response.status === 200) {
