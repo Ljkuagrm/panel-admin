@@ -181,36 +181,58 @@ const Sidebar = () => {
               >
 
                 <li>
-                  <button className="py-2 px-4 border-l border-gray-500 ml-6 block relative before:w-3 before:h-3 before:absolute before:bg-primary before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2 before:border-4 before:border-secondary-100 hover:text-white transition-colors"
-                    onClick={() => setShowModalCategoria(true)}
-                  >
-                    Categoria
-                  </button>
+                  <div className="flex items-center">
+                    <button
+                      className="py-2 px-4 border-l border-gray-500 ml-6 block relative before:w-3 before:h-3 before:absolute before:bg-primary before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2 before:border-4 before:border-secondary-100 hover:text-white transition-colors"
+                      onClick={() => setShowModalCategoria(true)}
+                    >
+                      Categoria
+                    </button>
+
+                    <button className="py-2 px-4 border-l border-gray-500 ml-2 text-primary hover:text-white transition-colors">
+                      <Link to="/VerDatos">Ver</Link>
+                    </button>
+                  </div>
                   <Modal showModal={showModalCategoria} handleClose={handleCategory} titulo="CATEGORÍA" etiqueta1="Nombre" etiqueta2="Super Categoría"></Modal>
                 </li>
                 <li>
+                <div className="flex items-center">
                   <button className="py-2 px-4 border-l border-gray-500 ml-6 block relative before:w-3 before:h-3 before:absolute before:bg-primary before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2 before:border-4 before:border-secondary-100 hover:text-white transition-colors"
                     onClick={() => setShowModalMarca(true)}
                   >
                     Marca
                   </button>
+                  <button className="py-2 px-4 border-l border-gray-500 ml-2 text-primary hover:text-white transition-colors">
+                    Ver
+                  </button>
                   <Modal showModal={showModalMarca} handleClose={handleMarca} titulo="MARCA" etiqueta1="Nombre" etiqueta2="País"></Modal>
+                </div>
                 </li>
                 <li>
+                <div className="flex items-center">
                   <button className="py-2 px-4 border-l border-gray-500 ml-6 block relative before:w-3 before:h-3 before:absolute before:bg-primary before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2 before:border-4 before:border-secondary-100 hover:text-white transition-colors"
                     onClick={() => setShowModalColor(true)}
                   >
                     Color
                   </button>
+                  <button className="py-2 px-4 border-l border-gray-500 ml-2 text-primary hover:text-white transition-colors">
+                    Ver
+                  </button>
                   <Modal showModal={showModalColor} handleClose={handleColor} titulo="COLOR" etiqueta1="Nombre" etiqueta2="Descripción"></Modal>
+                </div>
                 </li>
                 <li>
+                <div className="flex items-center">
                   <button className="py-2 px-4 border-l border-gray-500 ml-6 block relative before:w-3 before:h-3 before:absolute before:bg-primary before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2 before:border-4 before:border-secondary-100 hover:text-white transition-colors"
                     onClick={() => setShowModalBodega(true)}
                   >
                     Bodega
                   </button>
+                  <button className="py-2 px-4 border-l border-gray-500 ml-2 text-primary hover:text-white transition-colors">
+                    Ver
+                  </button>
                   <Modal showModal={showModalBodega} handleClose={handleBodega} titulo="Bodega" etiqueta1="Descripción" etiqueta2="Capacidad"></Modal>
+                </div>
                 </li>
               </ul>
             </li>

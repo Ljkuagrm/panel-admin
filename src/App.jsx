@@ -12,6 +12,7 @@ import Profile from "./pages/admin/Profile";
 import Chat from "./pages/admin/Chat";
 import Error404 from "./pages/Error404";
 import { Catalogo } from "./pages/auth/Catalogo";
+import VerDatos from "./components/VerDatos";
 
 
 
@@ -26,6 +27,8 @@ function App() {
       </Route>
 
       <Route path="/home" element={<Catalogo />} />
+
+      <Route path="/VerDatos" element={<VerDatos />} />
 
       <Route path="/" element={<LayoutAdmin />}>
         <Route index element={<Home />} />
