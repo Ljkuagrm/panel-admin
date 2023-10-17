@@ -25,119 +25,20 @@ const Sidebar = () => {
   const [showModalColor, setShowModalColor] = useState(false);
   const [showModalBodega, setShowModalBodega] = useState(false);
 
-
-  // Boton de Marca para enviar datos
-  const handleCategory = async () => {
-    setShowModalCategoria(false);
-
-    // Enviar los datos del registro a la base de datos
-    try {
-
-      const response = await registerApi.post('/category', {
-        nombre: document.getElementById("date1").value,
-        id_categoria_padre: {
-          id: document.getElementById("date2").value
-        },
-      });
-
-      // Enviar un mensaje de registro completado
-      if (response.status === 200) {
-        document.getElementById("message").innerText = "Categoria registrada";
-
-        // En caso de no enviar datos mandar un status de error
-      } else {
-        const error = await response.json();
-        document.getElementById("message").innerText = error.message;
-      }
-
-      // En caso de no enviar datos mandar un status de error
-    } catch (error) {
-      document.getElementById("message").innerText = error.message;
+  
+    const handleClose = () => {
+      setShowModalCategoria(false);
+      setShowModalMarca(false);
+      setShowModalColor(false);
+      setShowModalBodega(false);
     }
-  }
+
 
   // Boton de Marca para enviar datos
   const handleMarca = async () => {
     setShowModalMarca(false);
-
+    console.log(showModalMarca.valueOf)
     // Enviar los datos del registro a la base de datos
-    try {
-      const response = await registerApi.post('/marca', {
-        nombre: document.getElementById("date1").value,
-        pais: document.getElementById("date2").value,
-      });
-
-      // Enviar un mensaje de registro completado
-      if (response.status === 200) {
-        document.getElementById("message").innerText = "Marca registrada";
-
-        // En caso de no enviar datos mandar un status de error
-      } else {
-        const error = await response.json();
-        document.getElementById("message").innerText = error.message;
-      }
-
-      // En caso de no enviar datos mandar un status de error
-    } catch (error) {
-      document.getElementById("message").innerText = error.message;
-    }
-  }
-
-  // Boton de Color para enviar datos
-  const handleColor = async () => {
-    setShowModalColor(false);
-
-    // Enviar los datos del registro a la base de datos
-    try {
-      const response = await registerApi.post('/color', {
-        nombre: document.getElementById("date1").value,
-        descripcion: document.getElementById("date2").value,
-      });
-
-      // Enviar un mensaje de registro completado
-      if (response.status === 200) {
-        document.getElementById("message").innerText = "Color registrada";
-
-        // En caso de no enviar datos mandar un status de error
-      } else {
-        const error = await response.json();
-        document.getElementById("message").innerText = error.message;
-      }
-
-      // En caso de no enviar datos mandar un status de error
-    } catch (error) {
-      document.getElementById("message").innerText = error.message;
-    }
-  }
-
-  // Boton de Marca para enviar datos
-  const handleBodega = async () => {
-    setShowModalBodega(false);
-
-    // Enviar los datos del registro a la base de datos
-    try {
-      const response = await registerApi.post('/bodega', {
-        descripcion: document.getElementById("date1").value,
-        capacidad: document.getElementById("date2").value,
-      });
-
-      // Enviar un mensaje de registro completado
-      if (response.status === 200) {
-        document.getElementById("message").innerText = "Bodega registrada";
-
-        // En caso de no enviar datos mandar un status de error
-      } else {
-        const error = await response.json();
-        document.getElementById("message").innerText = error.message;
-      }
-
-      // En caso de no enviar datos mandar un status de error
-    } catch (error) {
-      document.getElementById("message").innerText = error.message;
-    }
-
-    // Espera de unos segundo
-    await new Promise((resolve) => setTimeout(resolve, 2000));
   }
 
   return (
@@ -186,7 +87,7 @@ const Sidebar = () => {
                   >
                     Categoria
                   </button>
-                  <Modal showModal={showModalCategoria} handleClose={handleCategory} titulo="CATEGORÍA" etiqueta1="Nombre" etiqueta2="Super Categoría"></Modal>
+                  <Modal showModal={showModalCategoria} handleClose={handleClose} titulo="category" etiqueta1="nombre" etiqueta2="id_categoria_padre"></Modal>
                 </li>
                 <li>
                   <button className="py-2 px-4 border-l border-gray-500 ml-6 block relative before:w-3 before:h-3 before:absolute before:bg-primary before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2 before:border-4 before:border-secondary-100 hover:text-white transition-colors"
@@ -194,7 +95,7 @@ const Sidebar = () => {
                   >
                     Marca
                   </button>
-                  <Modal showModal={showModalMarca} handleClose={handleMarca} titulo="MARCA" etiqueta1="Nombre" etiqueta2="País"></Modal>
+                  <Modal showModal={showModalMarca} handleClose={handleClose} titulo="marca" etiqueta1="nombre" etiqueta2="pais"></Modal>
                 </li>
                 <li>
                   <button className="py-2 px-4 border-l border-gray-500 ml-6 block relative before:w-3 before:h-3 before:absolute before:bg-primary before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2 before:border-4 before:border-secondary-100 hover:text-white transition-colors"
@@ -202,7 +103,7 @@ const Sidebar = () => {
                   >
                     Color
                   </button>
-                  <Modal showModal={showModalColor} handleClose={handleColor} titulo="COLOR" etiqueta1="Nombre" etiqueta2="Descripción"></Modal>
+                  <Modal showModal={showModalColor} handleClose={handleClose} titulo="color" etiqueta1="nombre" etiqueta2="descripcion"></Modal>
                 </li>
                 <li>
                   <button className="py-2 px-4 border-l border-gray-500 ml-6 block relative before:w-3 before:h-3 before:absolute before:bg-primary before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2 before:border-4 before:border-secondary-100 hover:text-white transition-colors"
@@ -210,7 +111,7 @@ const Sidebar = () => {
                   >
                     Bodega
                   </button>
-                  <Modal showModal={showModalBodega} handleClose={handleBodega} titulo="Bodega" etiqueta1="Descripción" etiqueta2="Capacidad"></Modal>
+                  <Modal showModal={showModalBodega} handleClose={handleClose} titulo="bodega" etiqueta1="descripcion" etiqueta2="capacidad"></Modal>
                 </li>
               </ul>
             </li>
