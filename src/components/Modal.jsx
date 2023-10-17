@@ -1,8 +1,7 @@
-import React from "react";
-import {IoMdCloseCircleOutline,} from "react-icons/io"
+import { IoMdCloseCircleOutline, } from "react-icons/io"
 
-const Modal = ({showModal, handleClose, titulo, etiqueta1, etiqueta2, etiqueta3="", etiqueta4=""}) => {
-  
+const Modal = ({ showModal, handleClose, titulo, etiqueta1, etiqueta2, etiqueta3 = "", etiqueta4 = ""}) => {
+
   return (
     <>
       {showModal ? (
@@ -12,6 +11,7 @@ const Modal = ({showModal, handleClose, titulo, etiqueta1, etiqueta2, etiqueta3=
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-secondary-400 outline-none focus:outline-none">
                 <div className="flex items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t ">
                   <h3 className="text-3xl font=semibold">{titulo}</h3>
+                  <label id="message"></label>
                   <button
                     className="bg-transparent rounded-full h-8 w-8 text-black float-right flex items-center justify-center"
                     onClick={handleClose}
@@ -24,18 +24,18 @@ const Modal = ({showModal, handleClose, titulo, etiqueta1, etiqueta2, etiqueta3=
                     <label className="block text-black text-sm font-bold mb-1">
                       {etiqueta1}
                     </label>
-                    <input className="shadow appearance-none border rounded w-full py-2 px-1 text-black" />
+                    <input className="shadow appearance-none border rounded w-full py-2 px-1 text-black" id="date1" />
                     <label className="block text-black text-sm font-bold mb-1">
                       {etiqueta2}
                     </label>
-                    <input className="shadow appearance-none border rounded w-full py-2 px-1 text-black" />
-                    { ( etiqueta3 !== "")? <>
+                    <input className="shadow appearance-none border rounded w-full py-2 px-1 text-black" id="date2" />
+                    {(etiqueta3 !== "") ? <>
                       <label className="block text-black text-sm font-bold mb-1">
                         Address
                       </label>
                       <input className="shadow appearance-none border rounded w-full py-2 px-1 text-black" />
                     </> : null}
-                    { ( etiqueta4 !== "")? <>
+                    {(etiqueta4 !== "") ? <>
                       <label className="block text-black text-sm font-bold mb-1">
                         City
                       </label>

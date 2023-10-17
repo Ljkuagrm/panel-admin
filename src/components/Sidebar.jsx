@@ -11,14 +11,12 @@ import {
   RiMenu3Line,
   RiCloseLine,
 } from "react-icons/ri";
-import {ImHome,} from "react-icons/im";
+import { ImHome, } from "react-icons/im";
 import Modal from "./Modal";
-
-
-
+import { registerApi } from "../pages/api/registerApi";
 
 const Sidebar = () => {
-  
+
   const [showMenu, setShowMenu] = useState(true);
   const [showSubmenu, setShowSubmenu] = useState(false);
 
@@ -34,13 +32,39 @@ const Sidebar = () => {
     setShowModalBodega(false);
   }
 
+  // Boton de Marca para enviar datos
+  const handleMarca = async () => {
+    setShowModalMarca(false);
+
+    // Enviar los datos del registro a la base de datos
+    try {
+      const response = await registerApi.post('/marca', {
+        nombre: document.getElementById("date1").value,
+        pais: document.getElementById("date2").value,
+      });
+
+      // Enviar un mensaje de registro completado
+      if (response.status === 200) {
+        document.getElementById("message").innerText = "Marca registrada";
+
+        // En caso de no enviar datos mandar un status de error
+      } else {
+        const error = await response.json();
+        document.getElementById("message").innerText = error.message;
+      }
+
+      // En caso de no enviar datos mandar un status de error
+    } catch (error) {
+      document.getElementById("message").innerText = error.message;
+    }
+  }
+
   return (
-    
+
     <>
       <div
-        className={`xl:h-[100vh] overflow-y-scroll fixed xl:static w-[80%] md:w-[40%] lg:w-[30%] xl:w-auto h-full top-0 bg-secondary-100 p-4 flex flex-col justify-between z-50 ${
-          showMenu ? "left-0" : "-left-full"
-        } transition-all`}
+        className={`xl:h-[100vh] overflow-y-scroll fixed xl:static w-[80%] md:w-[40%] lg:w-[30%] xl:w-auto h-full top-0 bg-secondary-100 p-4 flex flex-col justify-between z-50 ${showMenu ? "left-0" : "-left-full"
+          } transition-all`}
       >
         <div>
           <h1 className="text-center text-2xl font-bold text-white mb-10">
@@ -65,21 +89,20 @@ const Sidebar = () => {
                   <LiaTshirtSolid className="text-primary" /> Productos
                 </span>
                 <RiArrowRightSLine
-                  className={`mt-1 ${
-                    showSubmenu && "rotate-90"
-                  } transition-all`}
+                  className={`mt-1 ${showSubmenu && "rotate-90"
+                    } transition-all`}
                 />
               </button>
               <ul
                 className={` ${
                   //h 130px para 3
                   showSubmenu ? "h-[180px]" : "h-0"
-                } overflow-y-hidden transition-all`}
-                >
+                  } overflow-y-hidden transition-all`}
+              >
 
                 <li>
-                 <button className="py-2 px-4 border-l border-gray-500 ml-6 block relative before:w-3 before:h-3 before:absolute before:bg-primary before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2 before:border-4 before:border-secondary-100 hover:text-white transition-colors"
-                  onClick={() => setShowModalCategoria(true)}
+                  <button className="py-2 px-4 border-l border-gray-500 ml-6 block relative before:w-3 before:h-3 before:absolute before:bg-primary before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2 before:border-4 before:border-secondary-100 hover:text-white transition-colors"
+                    onClick={() => setShowModalCategoria(true)}
                   >
                     Categoria
                   </button>
@@ -87,15 +110,15 @@ const Sidebar = () => {
                 </li>
                 <li>
                   <button className="py-2 px-4 border-l border-gray-500 ml-6 block relative before:w-3 before:h-3 before:absolute before:bg-primary before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2 before:border-4 before:border-secondary-100 hover:text-white transition-colors"
-                  onClick={() => setShowModalMarca(true)}
+                    onClick={() => setShowModalMarca(true)}
                   >
                     Marca
                   </button>
-                  <Modal showModal={showModalMarca} handleClose={handleClose} titulo="MARCA" etiqueta1="Nombre" etiqueta2="País"></Modal>
+                  <Modal showModal={showModalMarca} handleClose={handleMarca} titulo="MARCA" etiqueta1="Nombre" etiqueta2="País"></Modal>
                 </li>
                 <li>
                   <button className="py-2 px-4 border-l border-gray-500 ml-6 block relative before:w-3 before:h-3 before:absolute before:bg-primary before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2 before:border-4 before:border-secondary-100 hover:text-white transition-colors"
-                  onClick={() => setShowModalColor(true)}
+                    onClick={() => setShowModalColor(true)}
                   >
                     Color
                   </button>
@@ -103,12 +126,12 @@ const Sidebar = () => {
                 </li>
                 <li>
                   <button className="py-2 px-4 border-l border-gray-500 ml-6 block relative before:w-3 before:h-3 before:absolute before:bg-primary before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2 before:border-4 before:border-secondary-100 hover:text-white transition-colors"
-                  onClick={() => setShowModalBodega(true)}
+                    onClick={() => setShowModalBodega(true)}
                   >
                     Bodega
                   </button>
                   <Modal showModal={showModalBodega} handleClose={handleClose} titulo="Bodega" etiqueta1="Descripción" etiqueta2="Capacidad"></Modal>
-                </li>                
+                </li>
               </ul>
             </li>
             <li>
@@ -143,7 +166,7 @@ const Sidebar = () => {
         onClick={() => setShowMenu(!showMenu)}
         className="xl:hidden fixed bottom-4 right-8 w-16 h-16 bg-secondary-400 text-primary p-5 rounded-full z-50 flex items-center justify-center"
       >
-        {showMenu ? <RiCloseLine className="w-8 h-8"/> : <RiMenu3Line className="w-8 h-8" />}
+        {showMenu ? <RiCloseLine className="w-8 h-8" /> : <RiMenu3Line className="w-8 h-8" />}
       </button>
     </>
   );
