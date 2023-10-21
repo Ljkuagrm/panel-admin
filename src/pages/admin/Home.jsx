@@ -1,15 +1,20 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation,} from "react-router-dom";
 import { RiArrowLeftSLine, RiArrowRightSLine } from "react-icons/ri";
 import { Menu, MenuItem, MenuButton } from "@szhsin/react-menu";
 import "@szhsin/react-menu/dist/index.css";
 import "@szhsin/react-menu/dist/transitions/slide.css";
 
 const Home = () => {
+  const { state } = useLocation();
+
   return (
     <div>
       <div className="flex items-center justify-between mb-10">
-        <h1 className="text-4xl text-secondary-400 font-bold">Bienvenido, AdminDM!</h1>
+        <div className='user'>
+          <h1 className="text-4xl text-secondary-400 font-bold">Bienvenido, {state?.name}</h1>
+				</div>
+      
         <div className="flex items-center text-secondary-400 gap-2 text-3xl">
           <RiArrowLeftSLine className="hover:cursor-pointer hover:text-secondary-200 transition-colors" />
           <RiArrowRightSLine className="hover:cursor-pointer hover:text-secondary-200 transition-colors" />
@@ -26,8 +31,6 @@ const Home = () => {
           <h5 className="text-secondary-400 font-bold mb-2">Fecha</h5>
           <h5 className="text-secondary-400 font-bold mb-2">Acciones</h5>
         </div>
-
-
 
 
         <div className="grid grid-cols-1 md:grid-cols-5 gap-4 items-center mb-4 bg-secondary-900 p-4 rounded-xl">

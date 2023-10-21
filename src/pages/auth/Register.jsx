@@ -1,114 +1,184 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { registerApi } from '../api/registerApi';
+import { useNavigate } from 'react-router-dom';
+import { useForm } from '../hook/userForm';
+
 // Icons
 import {
-  RiMailLine,
-  RiLockLine,
   RiEyeLine,
   RiEyeOffLine,
-  RiUserLine,
 } from "react-icons/ri";
+
 const Register = () => {
+
+  const navigate = useNavigate();
+  const { name, onInputChange, onResetForm } = useForm({
+    name: '',
+    email: '',
+    password: '',
+    username: '',
+    phone: '',
+  });
+  const [user, setUser] = React.useState({
+    name: '',
+    email: '',
+    password: '',
+    username: '',
+    phone: '',
+  });
+  const [message, setMessage] = React.useState(null);
+  const handleChange = (event) => {
+    setUser({
+      ...user,
+      [event.target.name]: event.target.value,
+    });
+    onInputChange(event);
+  };
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    // Enviar los datos del registro a la base de datos
+    try {
+      const response = await registerApi.post('/usuario', {
+        name: user.name,
+        phone: user.phone,
+        email: user.email,
+        username: user.username,
+        password: user.password,
+        role: "CLIENTE"
+      });
+
+      if (response.status === 200) {
+        setMessage('User registered successfully');
+      } else {
+        const error = await response.json();
+        setMessage(error.message);
+      }
+
+    } catch (error) {
+      setMessage(error.message);
+    }
+
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+
+    navigate('/chat', {
+      replace: true,
+      state: {
+        logged: true,
+        name,
+      },
+    });
+
+    onResetForm();
+  };
   const [showPassword, setShowPassword] = useState(false);
+
+
+
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
       <div className="bg-secondary-100 p-8 rounded-xl shadow-2xl w-auto lg:w-[450px]">
         <h1 className="text-3xl text-center uppercase font-bold tracking-[5px] text-white mb-8">
           Crear <span className="text-primary">cuenta</span>
         </h1>
-        <form className="mb-8">
-          <button className="flex items-center justify-center py-3 px-4 gap-4 bg-secondary-400 w-full rounded-full mb-8 text-green-400">
-            <img
-              src="../../../public/dappermens10.png"
-              className="w-8 h-8"
-            />
-            DAPPER MEN'S
-          </button>
+        {message && <div className="message">{message}</div>}
+        <button className="flex items-center justify-center py-3 px-4 gap-4 bg-secondary-400 w-full rounded-full mb-8 text-green-400">
+          <img
+            src="../../../public/dappermens10.png"
+            className="w-8 h-8"
+          />
+          DAPPER MEN'S
+        </button>
+        <form onSubmit={handleSubmit}>
           <div className="relative mb-4">
-            <RiUserLine className="absolute top-1/2 -translate-y-1/2 left-2 text-primary" />
+            <label htmlFor="name">Nombre:</label>
             <input
+              className="py-1 pl-8 pr-4 bg-secondary-900 text-secondary-400 w-full outline-none rounded-lg"
               type="text"
-              className="py-3 pl-8 pr-4 bg-secondary-900 w-full outline-none rounded-lg"
-              placeholder="Nombre(s)"
+              id="name"
+              name="name"
+              placeholder="Ingresa tu nombre completo"
+              required
+              value={user.fullname}
+              onChange={handleChange}
+              autoComplete='off'
             />
           </div>
+
           <div className="relative mb-4">
-            <RiUserLine className="absolute top-1/2 -translate-y-1/2 left-2 text-primary" />
+            <label htmlFor="email">Correo:</label>
             <input
-              type="text"
-              className="py-3 pl-8 pr-4 bg-secondary-900 w-full outline-none rounded-lg"
-              placeholder="Apellidos"
-            />
-          </div>
-          <div className="relative mb-4">
-            <RiMailLine className="absolute top-1/2 -translate-y-1/2 left-2 text-primary" />
-            <input
+              className="py-1 pl-8 pr-4 bg-secondary-900 text-secondary-400 w-full outline-none rounded-lg"
               type="email"
-              className="py-3 pl-8 pr-4 bg-secondary-900 w-full outline-none rounded-lg"
-              placeholder="Correo electrónico"
+              id="email"
+              name="email"
+              placeholder="Ingresa tu correo electrónico"
+              required
+              value={user.email}
+              onChange={handleChange}
+              autoComplete='off'
             />
           </div>
+
           <div className="relative mb-4">
-            <RiLockLine className="absolute top-1/2 -translate-y-1/2 left-2 text-primary" />
+            <label htmlFor="phone">Teléfono:</label>
             <input
+              className="py-1 pl-8 pr-4 bg-secondary-900 text-secondary-400 w-full outline-none rounded-lg"
+              type="tel"
+              id="phone"
+              name="phone"
+              placeholder="Ingresa tu numero de celular"
+              required
+              value={user.phone}
+              onChange={handleChange}
+              autoComplete='off'
+            />
+          </div>
+
+          <div className="relative mb-4">
+            <label htmlFor="username">Nombre de usuario:</label>
+            <input
+              className="py-1 pl-8 pr-4 bg-secondary-900 text-secondary-400 w-full outline-none rounded-lg"
+              type="text"
+              id="username"
+              name="username"
+              placeholder="Ingresa un nombre de usuario"
+              required
+              value={user.username}
+              onChange={handleChange}
+              autoComplete='off'
+            />
+          </div>
+
+          <div className="relative mb-4">
+            <label htmlFor="password">Contraseña:</label>
+            <input
+              className="py-1 pl-8 pr-4 bg-secondary-900 text-secondary-400 w-full outline-none rounded-lg"
               type={showPassword ? "text" : "password"}
-              className="py-3 px-8 bg-secondary-900 w-full outline-none rounded-lg"
-              placeholder="Contraseña"
-              autoComplete="on"
+              id="password"
+              name="password"
+              placeholder="Ingresa tu contraseña"
+              required
+              value={user.password}
+              onChange={handleChange}
+              autoComplete='on'
             />
             {showPassword ? (
               <RiEyeOffLine
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute top-1/2 -translate-y-1/2 right-2 hover:cursor-pointer text-primary"
+                className="absolute top-1/2 right-2 hover:cursor-pointer text-secondary-400"
               />
             ) : (
               <RiEyeLine
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute top-1/2 -translate-y-1/2 right-2 hover:cursor-pointer text-primary"
+                className="absolute top-1/2 right-2 hover:cursor-pointer text-secondary-400"
               />
             )}
           </div>
-          <div className="relative mb-8">
-            <RiLockLine className="absolute top-1/2 -translate-y-1/2 left-2 text-primary" />
-            <input
-              type={showPassword ? "text" : "password"}
-              className="py-3 px-8 bg-secondary-900 w-full outline-none rounded-lg"
-              placeholder="Confirmar contraseña"
-              autoComplete="on"
-            />
-            {showPassword ? (
-              <RiEyeOffLine
-                onClick={() => setShowPassword(!showPassword)}
-                className="absolute top-1/2 -translate-y-1/2 right-2 hover:cursor-pointer text-primary"
-              />
-            ) : (
-              <RiEyeLine
-                onClick={() => setShowPassword(!showPassword)}
-                className="absolute top-1/2 -translate-y-1/2 right-2 hover:cursor-pointer text-primary"
-              />
-            )}
-          </div>
-          <div>
-            <button
-              type="submit"
-              className="bg-primary text-black uppercase font-bold text-sm w-full py-3 px-4 rounded-lg"
-            >
-              Registrarme
-            </button>
-          </div>
+
+          <input type="submit" value="Resgistrarse" className="bg-primary text-black uppercase font-bold text-sm w-full py-3 px-4 rounded-lg" />
         </form>
-        <span className="flex items-center justify-center gap-2">
-          ¿Ya tienes cuenta?{" "}
-          <Link
-            to="/login"
-            className="text-primary hover:text-gray-100 transition-colors"
-          >
-            Ingresa
-          </Link>
-        </span>
       </div>
     </div>
   );
 };
-
-export default Register;
+export default Register

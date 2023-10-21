@@ -11,27 +11,31 @@ import Home from "./pages/admin/Home";
 import Profile from "./pages/admin/Profile";
 import Chat from "./pages/admin/Chat";
 import Error404 from "./pages/Error404";
+import Catalogo  from "./pages/auth/Catalogo";
 
 
 
 function App() {
   return <BrowserRouter>
-  <Routes>
-    <Route path="/login" element={<LayoutAuth/>}>
-      <Route index element={<Login/>}/>
-      <Route path="registro" element={<Register/>}/>
-      <Route path="olvide-password" element={<ForgetPassword/>}/>
-    </Route>
+    <Routes>
+      <Route path="/login" element={<LayoutAuth />}>
+        <Route index element={<Login />} />
+        <Route path="registro" element={<Register />} />
+        <Route path="olvide-password" element={<ForgetPassword />} />
+        <Route path="catalago" element={<Catalogo />} />
+      </Route>
 
-    <Route path="/" element={<LayoutAdmin/>}>
-      <Route index element={<Home/>}/>
-      <Route path="perfil" element={<Profile/>}/>
-      <Route path="chat" element={<Chat/>}/>
-    </Route>
+      <Route path="/home" element={<Catalogo />} />
 
-    <Route path="*" element={<Error404/>}/>
+      <Route path="/" element={<LayoutAdmin />}>
+        <Route index element={<Home />} />
+        <Route path="perfil" element={<Profile />} />
+        <Route path="chat" element={<Chat />} />
+      </Route>
 
-  </Routes>
+      <Route path="*" element={<Error404 />} />
+
+    </Routes>
   </BrowserRouter>
 }
 
