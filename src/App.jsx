@@ -11,7 +11,7 @@ import Home from "./pages/admin/Home";
 import Profile from "./pages/admin/Profile";
 import Chat from "./pages/admin/Chat";
 import Error404 from "./pages/Error404";
-import { Catalogo } from "./pages/auth/Catalogo";
+import Catalogo  from "./pages/auth/Catalogo";
 
 
 
