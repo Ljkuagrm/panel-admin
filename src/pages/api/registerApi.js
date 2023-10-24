@@ -1,6 +1,6 @@
 import axios from "axios";
 
 export const registerApi = axios.create({
-    baseURL : 'https://elfin-rain-production.up.railway.app'
+    baseURL : 'http://apirest-dapper-mens.up.railway.app'
 });
 

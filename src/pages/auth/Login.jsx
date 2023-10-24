@@ -31,14 +31,18 @@ const Login = () => {
     const contraseña = password;
 
     // Verificar si el usuario que se registró es CLIENTE
-    const response = await registerApi.post(`/usuario/login?username=${username}&password=${contraseña}`);
+    //const response = await registerApi.post(`/usuario/login?username=${username}&password=${contraseña}`);
+    const response = await registerApi.post('/auth/login', {
+      username: username,
+      password: contraseña,
+    });
 
-    const role = await registerApi.post(`/usuario/getRole?username=${username}`);
+    const role = await registerApi.post(`/auth/getRole?username=${username}`);
 
-    //console.log(role.data)
+    console.log(role.data)
 
 
-    if (role.status === 200 && response.data.role === 'CLIENTE') {
+    if (role.status === 200 && role.data === 'CLIENTE') {
       // Redirigir al usuario a la ventana de dashboard
       navigate('/home', {
         replace: true,

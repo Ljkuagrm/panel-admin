@@ -38,13 +38,12 @@ const Register = () => {
     event.preventDefault();
     // Enviar los datos del registro a la base de datos
     try {
-      const response = await registerApi.post('/usuario', {
+      const response = await registerApi.post('/auth/register', {
         name: user.name,
         phone: user.phone,
         email: user.email,
         username: user.username,
         password: user.password,
-        role: "CLIENTE"
       });
 
       if (response.status === 200) {
@@ -60,7 +59,7 @@ const Register = () => {
 
     await new Promise((resolve) => setTimeout(resolve, 2000));
 
-    navigate('/chat', {
+    navigate('/home', {
       replace: true,
       state: {
         logged: true,
