@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
+import { Menu, MenuItem, MenuButton, MenuDivider, SubMenu } from "@szhsin/react-menu";
+import "@szhsin/react-menu/dist/index.css";
+import "@szhsin/react-menu/dist/transitions/slide.css";
+
+
 // Iconos
 import { AiOutlineUsergroupAdd } from "react-icons/ai"
 import { LiaTshirtSolid } from "react-icons/lia"
@@ -19,6 +24,10 @@ const Sidebar = () => {
 
   const [showMenu, setShowMenu] = useState(true);
   const [showSubmenu, setShowSubmenu] = useState(false);
+
+
+  const [showSubmenu1, setShowSubmenu1] = useState(false);
+
 
   const [showModalCategoria, setShowModalCategoria] = useState(false);
   const [showModalMarca, setShowModalMarca] = useState(false);
@@ -52,6 +61,7 @@ const Sidebar = () => {
             DAPPER <span className="text-primary text-2xl">MEN'S</span>
           </h1>
           <ul>
+            {/*BOTON USUARIOS*/}
             <li>
               <Link
                 to="/"
@@ -60,7 +70,7 @@ const Sidebar = () => {
                 <AiOutlineUsergroupAdd className="text-primary" /> Usuarios
               </Link>
             </li>
-
+            {/*BOTON PRODUCTO*/}
             <li>
               <button
                 onClick={() => setShowSubmenu(!showSubmenu)}
@@ -74,47 +84,92 @@ const Sidebar = () => {
                     } transition-all`}
                 />
               </button>
+              {/*DEFINIR SUBMENU PRODUCTO*/}
               <ul
                 className={` ${
-                  //h 130px para 3
-                  showSubmenu ? "h-[180px]" : "h-0"
+                  //MODIFICAR EL ALTO h-180px para 4
+                  showSubmenu ? "h-[240px]" : "h-0"
                   } overflow-y-hidden transition-all`}
               >
-
+                {/*PRODUCTO-CATEGORIA*/}
                 <li>
-                  <button className="py-2 px-4 border-l border-gray-500 ml-6 block relative before:w-3 before:h-3 before:absolute before:bg-primary before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2 before:border-4 before:border-secondary-100 hover:text-white transition-colors"
+                  <Link to={`/vista/${1}`}>
+                  <button className="py-2 px-4 border-l border-gray-500 ml-6 block relative before:w-3 before:h-3 before:absolute before:bg-primary before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2 before:border-4 before:border-secondary-100 hover:text-primary transition-colors"
                     onClick={() => setShowModalCategoria(true)}
                   >
                     Categoria
                   </button>
-                  <Modal showModal={showModalCategoria} handleClose={handleClose} titulo="category" etiqueta1="nombre" etiqueta2="id_categoria_padre"></Modal>
+                  </Link>
+                  <Modal showModal={showModalCategoria} handleClose={handleClose} titulo="Categoria" etiqueta1="Nombre" etiqueta2="id_categoria_padre"></Modal>
                 </li>
+                {/*PRODUCTO-MARCA*/}
                 <li>
-                  <button className="py-2 px-4 border-l border-gray-500 ml-6 block relative before:w-3 before:h-3 before:absolute before:bg-primary before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2 before:border-4 before:border-secondary-100 hover:text-white transition-colors"
+                  <Link to={`/vista/${2}`}>
+                  <button className="py-2 px-4 border-l border-gray-500 ml-6 block relative before:w-3 before:h-3 before:absolute before:bg-primary before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2 before:border-4 before:border-secondary-100 hover:text-primary transition-colors"
                     onClick={() => setShowModalMarca(true)}
                   >
                     Marca
                   </button>
-                  <Modal showModal={showModalMarca} handleClose={handleClose} titulo="marca" etiqueta1="nombre" etiqueta2="pais"></Modal>
+                  </Link>
+                  <Modal showModal={showModalMarca} handleClose={handleClose} titulo="Marca" etiqueta1="Nombre" etiqueta2="Pais"></Modal>
                 </li>
+                {/*PRODUCTO-COLOR*/}
                 <li>
-                  <button className="py-2 px-4 border-l border-gray-500 ml-6 block relative before:w-3 before:h-3 before:absolute before:bg-primary before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2 before:border-4 before:border-secondary-100 hover:text-white transition-colors"
+                  <Link to={`/vista/${3}`}>
+                  <button className="py-2 px-4 border-l border-gray-500 ml-6 block relative before:w-3 before:h-3 before:absolute before:bg-primary before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2 before:border-4 before:border-secondary-100 hover:text-primary transition-colors"
                     onClick={() => setShowModalColor(true)}
                   >
                     Color
                   </button>
-                  <Modal showModal={showModalColor} handleClose={handleClose} titulo="color" etiqueta1="nombre" etiqueta2="descripcion"></Modal>
+                  </Link>
+                  <Modal showModal={showModalColor} handleClose={handleClose} titulo="Color" etiqueta1="Nombre" etiqueta2="Descripcion"></Modal>
                 </li>
+                {/*PRODUCTO-BODEGA*/}
                 <li>
-                  <button className="py-2 px-4 border-l border-gray-500 ml-6 block relative before:w-3 before:h-3 before:absolute before:bg-primary before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2 before:border-4 before:border-secondary-100 hover:text-white transition-colors"
+                  <Link to={`/vista/${4}`}>
+                  <button className="py-2 px-4 border-l border-gray-500 ml-6 block relative before:w-3 before:h-3 before:absolute before:bg-primary before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2 before:border-4 before:border-secondary-100 hover:text-primary transition-colors"
                     onClick={() => setShowModalBodega(true)}
-                  >
+                  > 
                     Bodega
                   </button>
-                  <Modal showModal={showModalBodega} handleClose={handleClose} titulo="bodega" etiqueta1="descripcion" etiqueta2="capacidad"></Modal>
+                  </Link>
+                  <Modal showModal={showModalBodega} handleClose={handleClose} titulo="Bodega" etiqueta1="Descripcion" etiqueta2="Capacidad"></Modal>
                 </li>
+
+                {/*Boton Pruebas con Submenu Acciones-bodega*/}
+                <li>   
+                  <Menu
+                    menuButton={
+                      <MenuButton className="py-2 px-4 border-l border-gray-500 ml-6 block relative before:w-3 before:h-3 before:absolute before:bg-primary before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2 before:border-4 before:border-secondary-100 hover:text-primary transition-colors"
+                      >
+                        Acciones
+                      </MenuButton>
+                    }
+                    align="end" arrow transition menuClassName="bg-secondary-200"
+                  >
+                    <MenuItem className="p-0 hover:bg-transparent">
+                      <Link
+                        to={`/vista/${4}`}
+                        className="rounded-lg transition-colors text-secondary-400 hover:bg-primary flex items-center gap-x-4 p-2 flex-1"
+                      >
+                        Mostrar
+                      </Link>
+                    </MenuItem>
+                    <MenuItem className="p-0 hover:bg-transparent">
+                      <button className="rounded-lg transition-colors text-secondary-400 hover:bg-primary flex items-center gap-x-4 p-2 flex-1"
+                      onClick={() => setShowModalBodega(true)}
+                      > 
+                        Editar
+                      </button>
+                      <Modal showModal={showModalBodega} handleClose={handleClose} titulo="bodega" etiqueta1="descripcion" etiqueta2="capacidad"></Modal>
+                    </MenuItem>
+                  </Menu>
+                </li>
+
+
               </ul>
             </li>
+            {/*Boton para Soporte*/}
             <li>
               <Link
                 to="/soporte"
@@ -124,6 +179,7 @@ const Sidebar = () => {
                 técnico
               </Link>
             </li>
+            {/*Boton para pruebas*/}
             <li>
               <Link
                 to="/chat"
@@ -132,6 +188,10 @@ const Sidebar = () => {
                 <RiCalendarTodoLine className="text-primary" /> Pruebas
               </Link>
             </li>
+
+
+
+
           </ul>
         </div>
         <nav>
@@ -143,6 +203,7 @@ const Sidebar = () => {
           </Link>
         </nav>
       </div>
+      {/*Boton flotante para movil Esconde el Sidebar */}
       <button
         onClick={() => setShowMenu(!showMenu)}
         className="xl:hidden fixed bottom-4 right-8 w-16 h-16 bg-secondary-400 text-primary p-5 rounded-full z-50 flex items-center justify-center"
