@@ -3,7 +3,6 @@ import { registerApi } from "../pages/api/registerApi";
 
 const Modal = ({ showModal, handleClose, titulo, etiqueta1, etiqueta2, etiqueta3 = "", etiqueta4 = ""}) => {
 
-
   const guardado = async () => {
     try {
       const response = await registerApi.post(`/${titulo}`, {
@@ -53,11 +52,11 @@ const Modal = ({ showModal, handleClose, titulo, etiqueta1, etiqueta2, etiqueta3
                     <label className="block text-black text-sm font-bold mb-1">
                       {etiqueta1}
                     </label>
-                    <input className="shadow appearance-none border rounded w-full py-2 px-1 text-black" id="date1" />
+                    <input className="shadow appearance-none border rounded w-full py-2 px-1 text-black" id="date1"/>
                     <label className="block text-black text-sm font-bold mb-1">
                       {etiqueta2}
                     </label>
-                    <input className="shadow appearance-none border rounded w-full py-2 px-1 text-black" id="date2" />
+                    <input className="shadow appearance-none border rounded w-full py-2 px-1 text-black" id="date2"/>
                     {(etiqueta3 !== "") ? <>
                       <label className="block text-black text-sm font-bold mb-1">
                         Address

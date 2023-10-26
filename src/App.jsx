@@ -12,6 +12,8 @@ import Profile from "./pages/admin/Profile";
 import Chat from "./pages/admin/Chat";
 import Error404 from "./pages/Error404";
 import Catalogo  from "./pages/auth/Catalogo";
+import ViewEdit from "./pages/admin/ViewEdit";
+import FormularioRegistro from "./components/FormularioRegistro";
 
 
 
@@ -25,12 +27,16 @@ function App() {
         <Route path="catalago" element={<Catalogo />} />
       </Route>
 
+
       <Route path="/home" element={<Catalogo />} />
+
 
       <Route path="/" element={<LayoutAdmin />}>
         <Route index element={<Home />} />
         <Route path="perfil" element={<Profile />} />
         <Route path="chat" element={<Chat />} />
+        <Route path="vista/:pm" element={<ViewEdit />} />
+        <Route path="formulario" element={<FormularioRegistro />} />
       </Route>
 
       <Route path="*" element={<Error404 />} />
